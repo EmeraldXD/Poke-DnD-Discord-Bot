@@ -43,7 +43,10 @@ async def fetch_pokemon_data(pokemon_id, is_shiny):
                 embed = discord.Embed(
                     title=f'{shiny_name} {name_emoji}',
                     description=f'Base Stat Total: {base_stat_total}',
-                    color=discord.Color.blue()
+                    if isShiny:
+                        color = discord.Color.yellow
+                    else:
+                        color = discord.Color.blue
                 )
                 embed.add_field(name='Stats', value=stat_text, inline=False)
 
@@ -76,10 +79,10 @@ async def wild_pokemon(ctx):
 
 @bot.command(name='starter')
 async def starter_pokemon(ctx):
-    starter_ids = [1, 4, 7, 152, 155, 158, 252, 255, 258, 387, 390, 393, 495, 498, 501, 650, 653, 656, 722, 725, 728, 810, 813, 816, 909, 912, 906]
+    starter_ids = [1, 4, 7, 152, 155, 158, 252, 255, 258, 387, 390, 393, 495, 498, 501, 650, 653, 656, 722, 725, 728, 810, 813, 816, 906, 909, 912]
 
     random_starter_id = random.choice(starter_ids)
-    is_shiny = random.random() <= 5 / 13
+    is_shiny = random.random() <= 4 / 13
     embed, sprite_file = await fetch_pokemon_data(random_starter_id, is_shiny)
 
     if embed:
